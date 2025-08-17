@@ -218,6 +218,7 @@ class UserResponse(BaseModel):
   phone_number: str = Field(None, json_schema_extra={"description": "The phone number of the user"})
   image_url: str = None
   sensitive_info: Optional[SensitiveInfoBase] = None
+  role: str
 
   model_config = ConfigDict(from_attributes=True)
 

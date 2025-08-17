@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from fastapi.middleware.cors import CORSMiddleware
 
 from fastapi import FastAPI, status
 from fastapi.responses import RedirectResponse
@@ -23,6 +24,20 @@ app = FastAPI(lifespan=lifespan)
 async def redirect_home():
     response = RedirectResponse(status_code=status.HTTP_301_MOVED_PERMANENTLY, url='/docs')
     return response
+
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,       # Frontend URLs
+    allow_credentials=True,      # Needed if you use cookies
+    allow_methods=["*"],         # Allow POST, GET, PUT, DELETE, etc.
+    allow_headers=["*"],         # Allow headers like Content-Type
+)
 
 app.include_router(auth.router)
 app.include_router(password_recovery.router)

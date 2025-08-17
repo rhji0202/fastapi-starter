@@ -12,6 +12,20 @@ from app.responses.user_responses import user_responses
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
+@router.get("/me", response_model=UserResponse, responses=user_responses)
+async def get_current_user_endpoint(
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Returns the currently logged-in user's data based on the access token.
+    """
+    try:
+        user = await UserService.get_user_by_id_in_db(current_user.id, db, current_user)
+        return user
+    except Exception as e:
+        return JSONResponse(content={"message": str(e)}, status_code=status.HTTP_400_BAD_REQUEST)
+
 @router.get("/{user_id}", response_model=UserResponse, responses=user_responses)
 async def get_user_by_id(
         user_id: int,

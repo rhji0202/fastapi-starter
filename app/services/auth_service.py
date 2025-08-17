@@ -82,14 +82,13 @@ class AuthService:
 
       token_data = {"role": user.role}
       access_token = create_access_token(token_data, user_id=user.id)
-      response.set_cookie(key="access_token", value=access_token, httponly=True)
       refresh_token = create_refresh_token(token_data, user_id=user.id)
       unique_id = hex(randint(0,255))
-      response.set_cookie(key="refresh_token", value=unique_id, httponly=True)
       await redis_connection.set(unique_id, refresh_token)
 
       return {
-        "user": UserResponse.model_validate(user)
+        "accessToken": access_token,
+        "refreshToken": unique_id,
       }
   
   @staticmethod
