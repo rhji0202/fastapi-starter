@@ -25,6 +25,7 @@ var/
 *.whl
 
 # Virtual environments
+myvenv/
 venv/
 env/
 ENV/
