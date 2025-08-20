@@ -17,7 +17,7 @@ class ProductService:
     products = await apply_pagination(query, filters, db)
     if not products:
       raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Product not found")
-
+    # print(products)
     return products
 
   @staticmethod

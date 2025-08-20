@@ -20,6 +20,7 @@ async def get_all_products(
     products = await ProductService.get_all_products(db, filters)
     if not products:
       return {"message": "Products not found"}
+    print(products)
     return {"products": products}
   except HTTPException as exc:
     return JSONResponse(content={"message": str(exc)}, status_code=exc.status_code)
