@@ -1,16 +1,16 @@
 import pytest
 import requests
 
-BASE_URL = "https://ecommerce.coderepublic.am/"
+BASE_URL = "http://127.0.0.1:8000/"
 
 @pytest.fixture(scope="session")
 def auth_token():
     response = requests.post(f"{BASE_URL}/auth/login", json={
-        "email": "testuser@example.com",
-        "password": "password123"
+        "email": "info@theonemind.kr",
+        "password": "Another12trongP@ss!"
     })
     assert response.status_code == 200, "Login failed!"
-    return response.json()['access_token']
+    return response.json()['accessToken']
 
 @pytest.fixture()
 def auth_headers(auth_token):
@@ -19,10 +19,10 @@ def auth_headers(auth_token):
 @pytest.fixture
 def new_admin_payload():
    return {
-      "username": "testuser1",
+      "username": "testuser",
       "name": "John",
       "surname": "Asatryan",
-      "email": "john.asatryan@example.com",
+      "email": "testuser@example.com",
       "image_url": "https://example.com/image.png",
       "password": "Password123!",
       "sensitive_info": {
@@ -39,7 +39,7 @@ def new_admin_payload():
 @pytest.fixture
 def admin_login():
   return {
-    "email": "john.asatryan@example.com",
+    "email": "testuser@example.com",
     "password": "Password123!"
   }
    
@@ -76,7 +76,7 @@ def another2_user_payload():
     "username": "testuser998",
     "name": "Bob",
     "surname": "Johnson",
-    "email": "bob.johnson876534@example.com",
+    "email": "info@theonemind.kr",
     "image_url": "https://example.com/avatar.png",
     "password": "Another12trongP@ss!",
     "sensitive_info": {
@@ -93,6 +93,6 @@ def another2_user_payload():
 @pytest.fixture
 def another2_login():
   return {
-    "email": "bob.johnson876534@example.com",
+    "email": "info@theonemind.kr",
     "password": "Another12trongP@ss!"
   }

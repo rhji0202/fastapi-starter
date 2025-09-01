@@ -50,11 +50,17 @@ class AuthService:
     user_data = {**user_data.model_dump(), "password": hashed_password, "created_at": datetime.now()}
 
     new_user = User(**user_data)
-    await EmailService.send_verification_email(new_user.email)
-
     db.add(new_user)
     await db.commit()
     await db.refresh(new_user)
+    
+    # 이메일 검증은 비동기로 처리 (오류 발생 방지)
+    try:
+        await EmailService.send_verification_email(new_user.email)
+    except Exception as e:
+        # 이메일 전송 실패해도 사용자 등록은 성공
+        print(f"Email verification failed: {e}")
+    
     return UserResponse.model_validate(new_user)
 
   @staticmethod
