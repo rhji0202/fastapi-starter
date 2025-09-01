@@ -28,6 +28,13 @@ async def initialize_db():
     logger.warning("No database name found in DATABASE_URL; cannot proceed with creation.")
     raise ValueError("DATABASE_URL must include a database name.")
 
+  # SQLite는 별도의 데이터베이스 생성이 필요하지 않음
+  # 파일이 존재하지 않으면 자동으로 생성됨
+  if "sqlite" in settings.DATABASE_URL:
+    logger.info(f"SQLite database '{db_name}' will be automatically created if it doesn't exist.")
+    return
+
+  # PostgreSQL 데이터베이스 생성 로직
   default_engine = create_async_engine(settings.DEFAULT_DATABASE_URL, echo=False, isolation_level="AUTOCOMMIT")
   try:
     async with default_engine.connect() as conn:
