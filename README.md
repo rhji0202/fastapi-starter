@@ -1,4 +1,4 @@
-# E-Commerce Backend System1
+# E-Commerce Backend System
 
 ## Project Overview
 
