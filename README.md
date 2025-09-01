@@ -67,7 +67,7 @@ This repository contains the backend implementation for an e-commerce platform u
    ```
 3. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   uv sync
    ```
 4. Run database migrations:
    ```bash
@@ -75,11 +75,11 @@ This repository contains the backend implementation for an e-commerce platform u
    ```
 5. Start the FastAPI server:
    ```bash
-   uvicorn app.main:app --reload
+   uv run uvicorn app.main:app --reload
    ```
 6. Access the API documentation:
-   - Swagger UI: `https://e-commerce-api.coderepublic.am/docs`
-   - ReDoc: `https://e-commerce-api.coderepublic.am/redoc`
+   - Swagger UI: `http://localhost:8000/docs`
+   - ReDoc: `http://localhost:8000/redoc`
 
 ---
 
